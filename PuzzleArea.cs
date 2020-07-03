@@ -114,8 +114,7 @@ namespace Puzzle15
                     blockNumGenerated = true;
                 }
             }
-            while (!blockNumGenerated);
-            
+            while (!blockNumGenerated);           
             return blockNum.ToString();
         }
 
