@@ -13,6 +13,8 @@ namespace Puzzle15
     public partial class PuzzleArea : Form
     {
         int betweenBlocks = 10;
+        bool[] ifNumerized = new bool[15];
+
         PuzzleBlock block;
         public PuzzleArea()
         {
@@ -31,17 +33,20 @@ namespace Puzzle15
         private void InitializeBlocks()
         {
             int blockCount = 1;
+
             for (int row = 1; row < 5; row++)
             {
                 for (int col = 1; col < 5; col++)
                 {
                     block = new PuzzleBlock();
-                    block.Text = blockCount.ToString();
                     block.Name = "block" + blockCount.ToString();   
                     block.FlatStyle = FlatStyle.Flat;
                     block.FlatAppearance.BorderSize = 0;
                     block.Top = betweenBlocks + (block.Width + betweenBlocks) * (row - 1);
                     block.Left = betweenBlocks + (block.Width + betweenBlocks) * (col - 1);
+               
+                    if (blockCount < 16)
+                        block.Text = RandomizeBlockNumbers();
 
                     block.Click += new EventHandler(Block_Click);
 
@@ -92,6 +97,28 @@ namespace Puzzle15
                 return false;
         }
 
+        private string RandomizeBlockNumbers()
+        {
+            int blockNum;
+            bool blockNumGenerated;
+            Random randBlockNum = new Random();
 
+            do
+            {
+                blockNumGenerated = false;
+                blockNum = randBlockNum.Next(1, 16);
+                if (ifNumerized[blockNum - 1] == false)
+                {
+                    block.Text = blockNum.ToString();
+                    ifNumerized[blockNum - 1] = true;
+                    blockNumGenerated = true;
+                }
+            }
+            while (!blockNumGenerated);
+            
+            return blockNum.ToString();
+        }
+
+        
     }
 }
