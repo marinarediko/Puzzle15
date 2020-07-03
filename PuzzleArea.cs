@@ -35,12 +35,19 @@ namespace Puzzle15
             {
                 for (int col = 1; col < 5; col++)
                 {
-                    block = new PuzzleBlock();               
-                    block.Top = 10 + (block.Width + 10) * (row-1);
-                    block.Left = 10 + (block.Width + 10) * (col-1);
+                    block = new PuzzleBlock();
                     block.Text = blockCount.ToString();
+                    block.Name = "block" + blockCount.ToString();   
+                    block.FlatStyle = FlatStyle.Flat;
+                    block.FlatAppearance.BorderSize = 0;
+                    block.Top = betweenBlocks + (block.Width + betweenBlocks) * (row - 1);
+                    block.Left = betweenBlocks + (block.Width + betweenBlocks) * (col - 1);
+
+                    block.Click += new EventHandler(Block_Click);
+
                     if (blockCount == 16)
                     {
+                        block.Name = "EmptyBlock";
                         block.Text = "";
                         block.BackColor = Color.LightGoldenrodYellow;
                     }
@@ -51,6 +58,38 @@ namespace Puzzle15
             }
         }
 
+        private void Block_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show(((PuzzleBlock)sender).Text);
+            Button block = (Button)sender;
+            if (IsAdjacent(block))
+            {
+                SwapBlocks(block);
+            }
+        }
 
+        private void SwapBlocks(Button block)
+        {
+             Button emptyBlock = (Button)this.Controls["EmptyBlock"];
+             Point oldLocation = block.Location;
+             block.Location = emptyBlock.Location;
+             emptyBlock.Location = oldLocation;
+        }
+
+        private bool IsAdjacent(Button block)
+        {
+            double a;
+            double b;
+            double c;
+            Button emptyBlock = (Button)this.Controls["EmptyBlock"];
+
+            a = Math.Abs(emptyBlock.Top - block.Top);
+            b = Math.Abs(emptyBlock.Left - block.Left);
+            c = a + b;
+            if (c == betweenBlocks + block.Width)
+                return true;
+            else
+                return false;
+        }
     }
 }

@@ -24,7 +24,9 @@ namespace Puzzle15
             this.Width = 100;
             this.Text = "0";
             this.Font = new Font( "Romantic", 18);
+            
         }
+
 
         
     }
