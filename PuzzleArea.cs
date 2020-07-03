@@ -109,7 +109,6 @@ namespace Puzzle15
                 blockNum = randBlockNum.Next(1, 16);
                 if (ifNumerized[blockNum - 1] == false)
                 {
-                    block.Text = blockNum.ToString();
                     ifNumerized[blockNum - 1] = true;
                     blockNumGenerated = true;
                 }
