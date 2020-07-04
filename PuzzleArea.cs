@@ -14,20 +14,20 @@ namespace Puzzle15
     {
         int betweenBlocks = 10;
         bool[] ifNumerized = new bool[15];
-
         PuzzleBlock block;
+
         public PuzzleArea()
         {
             InitializeComponent();
-            InitializePuzzleArea();
             InitializeBlocks();
+            InitializePuzzleArea();       
         }
 
         private void InitializePuzzleArea()
         {
             this.BackColor = Color.LightGoldenrodYellow;
-            this.Text = "Puzzle15";
-            this.ClientSize = new Size(450, 450);         
+            this.Text = "Puzzle15";          
+            this.ClientSize = new Size(betweenBlocks * 5 + block.Width * 4, betweenBlocks * 5 + block.Height * 4);
         }
 
         private void InitializeBlocks()
